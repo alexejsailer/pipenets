@@ -21,6 +21,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import pipenet.diagram.edit.policies.PipenetBaseItemSemanticEditPolicy;
+import pipenet.diagram.expressions.PipenetOCLFactory;
 import pipenet.diagram.providers.ElementInitializers;
 import pipenet.provider.PipenetItemProviderAdapterFactory;
 
@@ -68,6 +69,11 @@ public class PipenetDiagramEditorPlugin extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
+	private PipenetOCLFactory oclFactory;
+
+	/**
+	 * @generated
+	 */
 	public PipenetDiagramEditorPlugin() {
 	}
 
@@ -90,6 +96,7 @@ public class PipenetDiagramEditorPlugin extends AbstractUIPlugin {
 		adapterFactory = null;
 		linkConstraints = null;
 		initializers = null;
+		oclFactory = null;
 		instance = null;
 		super.stop(context);
 	}
@@ -233,6 +240,20 @@ public class PipenetDiagramEditorPlugin extends AbstractUIPlugin {
 	 */
 	public void setElementInitializers(ElementInitializers i) {
 		this.initializers = i;
+	}
+
+	/**
+	 * @generated
+	 */
+	public PipenetOCLFactory getPipenetOCLFactory() {
+		return oclFactory;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void setPipenetOCLFactory(PipenetOCLFactory f) {
+		this.oclFactory = f;
 	}
 
 	/**

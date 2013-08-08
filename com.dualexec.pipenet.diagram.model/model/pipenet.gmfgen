@@ -155,6 +155,8 @@
         <targetMetaFeature
             href="pipenet.genmodel#//pipenet/Arc/target"/>
       </modelFacet>
+      <creationConstraints
+          targetEnd="//@expressionProviders/@providers.0/@expressions.0"/>
     </links>
     <palette>
       <groups
@@ -459,6 +461,14 @@
   </application>
   <domainGenModel
       href="pipenet.genmodel#/"/>
+  <expressionProviders>
+    <providers
+        xsi:type="gmfgen:GenExpressionInterpreter">
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="self &lt;> oppositeEnd"/>
+    </providers>
+  </expressionProviders>
   <labelParsers
       extensibleViaService="true">
     <implementations

@@ -1,7 +1,10 @@
 package pipenet.diagram.edit.policies;
 
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.Map;
 
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -35,6 +38,8 @@ import org.eclipse.gmf.tooling.runtime.edit.helpers.GeneratedEditHelperBase;
 import pipenet.Arc;
 import pipenet.Node;
 import pipenet.Pipenet;
+import pipenet.PipenetPackage;
+import pipenet.diagram.expressions.PipenetOCLFactory;
 import pipenet.diagram.part.PipenetDiagramEditorPlugin;
 import pipenet.diagram.part.PipenetVisualIDRegistry;
 import pipenet.diagram.providers.PipenetElementTypes;
@@ -335,7 +340,28 @@ public class PipenetBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 */
 		public boolean canExistArc_4001(Pipenet container, Arc linkInstance,
 				Node source, Node target) {
-			return true;
+			try {
+				if (target == null) {
+					return true;
+				} else {
+					Map<String, EClassifier> env = Collections
+							.<String, EClassifier> singletonMap(
+									"oppositeEnd", PipenetPackage.eINSTANCE.getNode()); //$NON-NLS-1$
+					Object targetVal = PipenetOCLFactory.getExpression(0,
+							PipenetPackage.eINSTANCE.getNode(), env).evaluate(
+							target,
+							Collections.singletonMap("oppositeEnd", source)); //$NON-NLS-1$
+					if (false == targetVal instanceof Boolean
+							|| !((Boolean) targetVal).booleanValue()) {
+						return false;
+					} // else fall-through
+				}
+				return true;
+			} catch (Exception e) {
+				PipenetDiagramEditorPlugin.getInstance().logError(
+						"Link constraint evaluation error", e); //$NON-NLS-1$
+				return false;
+			}
 		}
 	}
 

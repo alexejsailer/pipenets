@@ -70,6 +70,10 @@
     <linkMetaFeature
         xsi:type="ecore:EReference"
         href="pipenet.ecore#//Arc/target"/>
+    <creationConstraints>
+      <targetEnd
+          body="self &lt;> oppositeEnd"/>
+    </creationConstraints>
   </links>
   <diagram>
     <diagramCanvas
