@@ -1,17 +1,452 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
-
-<!--
--->
-
 <plugin>
 
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated pipenet -->
-      <package
-            uri="http://pipenets.dualexec.com"
-            class="pipenet.PipenetPackage"
-            genModel="model/pipenet.genmodel"/>
+   <extension point="org.eclipse.team.core.fileTypes" id="repo-ftype">
+      <?gmfgen generated="true"?>
+      <fileTypes type="text" extension="pipenet_diagram"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.extension_parser" id="resource-factory">
+      <?gmfgen generated="true"?>
+      <parser
+         type="pipenet_diagram"
+         class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
+      </parser>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors" id="gmf-editor">
+      <?gmfgen generated="true"?>
+      <editor
+         id="pipenet.diagram.part.PipenetDiagramEditorID"
+         name="%editorName"
+         icon="icons/obj16/PipenetDiagramFile.gif"
+         extensions="pipenet_diagram"
+         default="true"
+         class="pipenet.diagram.part.PipenetDiagramEditor"
+         matchingStrategy="pipenet.diagram.part.PipenetMatchingStrategy"
+         contributorClass="pipenet.diagram.part.PipenetDiagramActionBarContributor">
+      </editor>
+   </extension>
+   
+   <extension point="org.eclipse.ui.contexts" id="ui-context">
+      <?gmfgen generated="true"?>
+      <context
+         description="%context.description"
+         id="pipenet.diagram.ui.diagramContext"
+         name="%context.name"
+         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+      </context>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards" id="creation-wizard">
+      <?gmfgen generated="true"?>
+  	  <wizard
+  	     name="%newWizardName"
+  	     icon="icons/obj16/PipenetDiagramFile.gif"
+  	     category="org.eclipse.ui.Examples"
+  	     class="pipenet.diagram.part.PipenetCreationWizard"
+  	     id="pipenet.diagram.part.PipenetCreationWizardID">
+  	  	 <description>%newWizardDesc</description>  
+      </wizard>
+   </extension>
+
+      <extension point="org.eclipse.ui.actionSets" id="init-diagram-action">
+      <?gmfgen generated="true"?>
+      <actionSet
+            label="%initDiagramActionLabel"
+            visible="true"
+            id="com.dualexec.pipenet.editor.diagram.InitDiagram">
+         <action
+               label="%initDiagramActionLabel"
+               class="pipenet.diagram.part.PipenetInitDiagramFileAction"
+               menubarPath="file/additions"
+               id="com.dualexec.pipenet.editor.diagram.InitDiagramAction">
+         </action>
+      </actionSet>
+   </extension>
+	
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders" id="global-actions">
+      <?gmfgen generated="true"?>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
+         id="PipenetPresentation">
+         <Priority name="Lowest"/>
+         <ViewId id="pipenet.diagram.part.PipenetDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="delete"/>
+            </ElementType>
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart">
+               <GlobalActionId actionId="save"/>
+            </ElementType>
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="save">
+               </GlobalActionId>
+            </ElementType>        
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+            class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
+            id="PipenetRender">
+         <Priority name="Lowest"/>
+         <ViewId id="pipenet.diagram.part.PipenetDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="cut"/>
+               <GlobalActionId actionId="copy"/>
+               <GlobalActionId actionId="paste"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+   </extension>
+
+
+   <extension point="org.eclipse.core.runtime.preferences" id="prefs">
+      <?gmfgen generated="true"?>
+      <initializer class="pipenet.diagram.preferences.DiagramPreferenceInitializer"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.preferencePages" id="prefpages">
+      <?gmfgen generated="true"?>
+      <page
+            id="com.dualexec.pipenet.editor.diagram.general"
+            name="%prefpage.com.dualexec.pipenet.editor.diagram.general"
+            class="pipenet.diagram.preferences.DiagramGeneralPreferencePage">
+      </page>
+      <page
+            id="com.dualexec.pipenet.editor.diagram.appearance"
+            name="%prefpage.com.dualexec.pipenet.editor.diagram.appearance"
+            category="com.dualexec.pipenet.editor.diagram.general"
+            class="pipenet.diagram.preferences.DiagramAppearancePreferencePage">
+      </page>
+      <page
+            id="com.dualexec.pipenet.editor.diagram.connections"
+            name="%prefpage.com.dualexec.pipenet.editor.diagram.connections"
+            category="com.dualexec.pipenet.editor.diagram.general"
+            class="pipenet.diagram.preferences.DiagramConnectionsPreferencePage">
+      </page>
+      <page
+            id="com.dualexec.pipenet.editor.diagram.printing"
+            name="%prefpage.com.dualexec.pipenet.editor.diagram.printing"
+            category="com.dualexec.pipenet.editor.diagram.general"
+            class="pipenet.diagram.preferences.DiagramPrintingPreferencePage">
+      </page>
+      <page
+            id="com.dualexec.pipenet.editor.diagram.rulersAndGrid"
+            name="%prefpage.com.dualexec.pipenet.editor.diagram.rulersAndGrid"
+            category="com.dualexec.pipenet.editor.diagram.general"
+            class="pipenet.diagram.preferences.DiagramRulersAndGridPreferencePage">
+      </page>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor" id="prop-contrib">
+      <?gmfgen generated="true"?>
+      <propertyContributor
+            contributorId="com.dualexec.pipenet.editor.diagram"
+            labelProvider="pipenet.diagram.sheet.PipenetSheetLabelProvider">
+         <propertyCategory category="domain"/>
+         <propertyCategory category="visual"/>
+         <propertyCategory category="extra"/>
+      </propertyContributor>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs" id="proptabs">
+      <?gmfgen generated="true"?>   
+      <propertyTabs contributorId="com.dualexec.pipenet.editor.diagram">
+         <propertyTab
+             category="visual"
+             id="property.tab.AppearancePropertySection"
+             label="%tab.appearance"/>
+          <propertyTab
+             category="visual"
+             id="property.tab.DiagramPropertySection"
+             label="%tab.diagram"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
+      </propertyTabs>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections" id="propsections">
+      <?gmfgen generated="true"?>   
+      <propertySections contributorId="com.dualexec.pipenet.editor.diagram">
+         <propertySection id="property.section.ConnectorAppearancePropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>
+         <propertySection id="property.section.ShapeColorAndFontPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection> 
+         <propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>     
+         <propertySection id="property.section.RulerGridPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
+            tab="property.tab.DiagramPropertySection">
+         </propertySection>     
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="pipenet.diagram.sheet.PipenetPropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+         </propertySection>
+      </propertySections>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
+      <?gmfgen generated="true"?>
+      <viewProvider class="pipenet.diagram.providers.PipenetViewProvider">
+         <Priority name="Lowest"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="Pipenet"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="2001,2002"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="4001"/>
+      </viewProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
+      <?gmfgen generated="true"?>
+      <editpartProvider class="pipenet.diagram.providers.PipenetEditPartProvider">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
+            <method name="getType()" value="Pipenet"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
+            <method name="getType()" value="2001,2002"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
+            <method name="getType()" value="4001"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
+            <method name="getType()" value="5001,5002,5003"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
+            <method name="getType()" value=""/>
+         </object>
+         <context views="generated-diagram,generated-nodes,generated-links,generated-labels,generated-compartments"/>
+      </editpartProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
+      <?gmfgen generated="true"?>
+      <modelingAssistantProvider class="pipenet.diagram.providers.PipenetModelingAssistantProvider">
+         <Priority name="Lowest"/>
+         <object class="pipenet.diagram.edit.parts.PipenetEditPart" id="Pipenet_1000"/>
+         <object class="pipenet.diagram.edit.parts.TransitionEditPart" id="Transition_2001"/>
+         <object class="pipenet.diagram.edit.parts.PlaceEditPart" id="Place_2002"/>
+         <context elements="Pipenet_1000,Transition_2001,Place_2002,"/>
+      </modelingAssistantProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
+      <?gmfgen generated="true"?>
+      <IconProvider class="pipenet.diagram.providers.PipenetIconProvider">
+         <Priority name="Low"/>
+      </IconProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders" id="parser-provider">
+      <?gmfgen generated="true"?>
+      <ParserProvider class="pipenet.diagram.providers.PipenetParserProvider">
+         <Priority name="Lowest"/>
+      </ParserProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes" id="element-types">
+      <?gmfgen generated="true"?>
+      <metamodel nsURI="http://pipenets.dualexec.com">
+         <metamodelType
+               id="com.dualexec.pipenet.editor.diagram.Pipenet_1000"
+               name="%metatype.name.Pipenet_1000"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Pipenet"
+               edithelper="pipenet.diagram.edit.helpers.PipenetEditHelper">
+            <param name="semanticHint" value="1000"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://pipenets.dualexec.com">
+         <metamodelType
+               id="com.dualexec.pipenet.editor.diagram.Transition_2001"
+               name="%metatype.name.Transition_2001"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Transition"
+               edithelper="pipenet.diagram.edit.helpers.TransitionEditHelper">
+            <param name="semanticHint" value="2001"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://pipenets.dualexec.com">
+         <metamodelType
+               id="com.dualexec.pipenet.editor.diagram.Place_2002"
+               name="%metatype.name.Place_2002"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Place"
+               edithelper="pipenet.diagram.edit.helpers.PlaceEditHelper">
+            <param name="semanticHint" value="2002"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://pipenets.dualexec.com">
+         <metamodelType
+               id="com.dualexec.pipenet.editor.diagram.Arc_4001"
+               name="%metatype.name.Arc_4001"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Arc"
+               edithelper="pipenet.diagram.edit.helpers.ArcEditHelper">
+            <param name="semanticHint" value="4001"/>
+         </metamodelType>
+      </metamodel>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings" id="element-types-bindings">
+      <?gmfgen generated="true"?>
+      <clientContext id="com.dualexec.pipenet.editor.diagram.TypeContext">
+         <enablement>
+            <test
+               property="org.eclipse.gmf.runtime.emf.core.editingDomain"
+               value="com.dualexec.pipenet.editor.diagram.EditingDomain"/>
+         </enablement>
+      </clientContext> 
+      <binding context="com.dualexec.pipenet.editor.diagram.TypeContext">
+         <elementType ref="com.dualexec.pipenet.editor.diagram.Pipenet_1000"/>
+         <elementType ref="com.dualexec.pipenet.editor.diagram.Transition_2001"/>
+         <elementType ref="com.dualexec.pipenet.editor.diagram.Place_2002"/>
+         <elementType ref="com.dualexec.pipenet.editor.diagram.Arc_4001"/>
+         <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
+      </binding>
+   </extension>
+
+   <extension id="PipenetApplication" point="org.eclipse.core.runtime.applications">
+      <?gmfgen generated="true"?>
+      <application>
+         <run class="pipenet.diagram.application.PipenetApplication"/>
+      </application>
+   </extension>
+
+   <extension point="org.eclipse.ui.perspectives" id="rcp-perspective">
+      <?gmfgen generated="true"?>
+      <perspective
+            id="pipenet.diagram.PipenetPerspective"
+            name="%perspectiveName"
+            class="pipenet.diagram.application.DiagramEditorPerspective">
+      </perspective>
+   </extension>
+
+   <extension point="org.eclipse.ui.commands" id="rcp-menu-commands">
+      <?gmfgen generated="true"?>
+      <command
+            name="%openURIActionLabel"
+            description="%openURIActionDescription"
+            categoryId="org.eclipse.ui.category.file"
+            id="com.dualexec.pipenet.editor.diagram.OpenURICommand"/>  
+      <command
+            name="%openActionLabel"
+            description="%openActionDescription"
+            categoryId="org.eclipse.ui.category.file"
+            id="com.dualexec.pipenet.editor.diagram.OpenCommand"/>  
+   </extension>
+
+   <extension point="org.eclipse.ui.bindings" id="rcp-command-bindings">
+      <?gmfgen generated="true"?>
+      <key
+            commandId="com.dualexec.pipenet.editor.diagram.OpenURICommand"
+            sequence="M1+U"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+      <key
+            commandId="com.dualexec.pipenet.editor.diagram.OpenCommand"
+            sequence="M1+O"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.actionSets" id="rcp-actions">
+      <?gmfgen generated="true"?>
+      <actionSet
+            label="%applicationActionSetLabel"
+            visible="true"
+            id="com.dualexec.pipenet.editor.diagram.ActionSet">
+         <action
+               label="%newDiagramActionLabel"
+               class="pipenet.diagram.application.DiagramEditorActionBarAdvisor$NewDiagramAction"
+               menubarPath="file/new/additions"
+               id="com.dualexec.pipenet.editor.diagram.NewDiagramAction">
+         </action>
+         <action
+               label="%aboutActionLabel"
+               class="pipenet.diagram.application.DiagramEditorActionBarAdvisor$AboutAction"
+               menubarPath="help/additions"
+               id="com.dualexec.pipenet.editor.diagram.AboutAction">
+         </action>
+         <action
+               label="%openURIActionLabel"
+               definitionId="com.dualexec.pipenet.editor.diagram.OpenURICommand"
+               class="pipenet.diagram.application.DiagramEditorActionBarAdvisor$OpenURIAction"
+               menubarPath="file/additions"
+               id="com.dualexec.pipenet.editor.diagram.OpenURIAction">
+         </action>
+         <action
+               label="%openActionLabel"
+               definitionId="com.dualexec.pipenet.editor.diagram.OpenCommand"
+               class="pipenet.diagram.application.DiagramEditorActionBarAdvisor$OpenAction"
+               menubarPath="file/additions"
+               id="com.dualexec.pipenet.editor.diagram.OpenAction">
+         </action>
+      </actionSet>
+   </extension>
+   <extension point="org.eclipse.ui.commands" id="update-cmd">
+      <?gmfgen generated="true"?>
+      <command
+         categoryId="org.eclipse.ui.category.edit"
+         defaultHandler="pipenet.diagram.part.PipenetDiagramUpdateCommand"
+         description="%update.diagram.description"
+         id="pipenet.diagram.updateDiagram"
+         name="%update.diagram.name"/>
+   </extension>
+   
+   <extension point="org.eclipse.ui.bindings" id="update-cmd-binding">
+      <?gmfgen generated="true"?>
+      <key 
+         commandId="pipenet.diagram.updateDiagram"
+         contextId="pipenet.diagram.ui.diagramContext"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="F5"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.menus" id="context-menus">
+      <?gmfgen generated="true"?>
+      <!-- menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=">
+      </menuContribution>
+      <menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar?after=">
+      </menuContribution -->
+      <menuContribution locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu">
+         <command commandId="com.dualexec.pipenet.editor.diagram.LoadResourceAction">
+            <visibleWhen>
+               <and>
+                  <with variable="activePartId"><equals value="pipenet.diagram.part.PipenetDiagramEditorID"/></with>
+                  <with variable="selection"><iterate ifEmpty="false"> 
+                     <instanceof value="pipenet.diagram.edit.parts.PipenetEditPart"/>
+                  </iterate></with>
+               </and>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+   <extension point="org.eclipse.ui.commands" id="menu-commands">
+      <?gmfgen generated="true"?>
+      <category id="pipenet.diagram.part.PipenetDiagramEditorID" name="%cmdcategory.name" description="%cmdcategory.desc"/>
+      <command id="com.dualexec.pipenet.editor.diagram.LoadResourceAction"
+         name="Load Resource"
+         categoryId="pipenet.diagram.part.PipenetDiagramEditorID"
+         defaultHandler="pipenet.diagram.part.LoadResourceAction"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.handlers" id="menu-handlers">
+      <?gmfgen generated="true"?>
+   </extension>
+
+   <!-- optionally, specify keybindings -->
 </plugin>

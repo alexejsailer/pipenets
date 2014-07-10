@@ -1,0 +1,7 @@
+# Tracing options for the com.dualexec.pipenet.editor.diagram plug-in
+
+# Common issues
+com.dualexec.pipenet.editor.diagram/debug=false
+
+# Visual IDs
+com.dualexec.pipenet.editor.diagram/debug/visualID=false

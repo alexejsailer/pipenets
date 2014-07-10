@@ -180,26 +180,26 @@
     </palette>
     <preferencePages
         xsi:type="gmfgen:GenStandardPreferencePage"
-        iD="com.dualexec.pipenet.diagram.diagram.general"
+        iD="com.dualexec.pipenet.editor.diagram.general"
         name="Pipenet Diagram">
       <children
           xsi:type="gmfgen:GenStandardPreferencePage"
-          iD="com.dualexec.pipenet.diagram.diagram.appearance"
+          iD="com.dualexec.pipenet.editor.diagram.appearance"
           name="Appearance"
           kind="Appearance"/>
       <children
           xsi:type="gmfgen:GenStandardPreferencePage"
-          iD="com.dualexec.pipenet.diagram.diagram.connections"
+          iD="com.dualexec.pipenet.editor.diagram.connections"
           name="Connections"
           kind="Connections"/>
       <children
           xsi:type="gmfgen:GenStandardPreferencePage"
-          iD="com.dualexec.pipenet.diagram.diagram.printing"
+          iD="com.dualexec.pipenet.editor.diagram.printing"
           name="Printing"
           kind="Printing"/>
       <children
           xsi:type="gmfgen:GenStandardPreferencePage"
-          iD="com.dualexec.pipenet.diagram.diagram.rulersAndGrid"
+          iD="com.dualexec.pipenet.editor.diagram.rulersAndGrid"
           name="Rulers And Grid"
           kind="RulersAndGrid"/>
     </preferencePages>
